@@ -6,7 +6,7 @@ delete colors['coolGray'];
 delete colors['blueGray'];
 
 module.exports = {
-  purge: ['./src/**/*{html,js}'],
+  content: ['./src/**/*{html,js,jsx}'],
   theme: {
     colors: {
       ...colors,
