@@ -11,18 +11,18 @@ const Paginate = ({ totalItems, itemsPerPage, neighbours, setOffset }) => {
 
     for (let i = start; i < end; i++) {
         items.push(
-        <a
-            key={`Paginador-${i}`}
-            onClick={() => {
-            setCurrent(i);
-            setOffset((i - 1) * itemsPerPage);
-            }}
-            href="#"
-            aria-current="page"
-            className={`${getClassActive(i)} relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
-        >
-            {i}
-        </a>
+            <a
+                key={`Paginador-${i}`}
+                onClick={() => {
+                    setCurrent(i);
+                    setOffset((i - 1) * itemsPerPage);
+                }}
+                href="#"
+                aria-current="page"
+                className={`${getClassActive(i)} relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
+            >
+                {i}
+            </a>
         );
     }
 
@@ -32,15 +32,15 @@ const Paginate = ({ totalItems, itemsPerPage, neighbours, setOffset }) => {
 
     function prevPage() {
         if (current > 1) {
-        setCurrent(current - 1);
-        setOffset((current - 2) * itemsPerPage);
+            setCurrent(current - 1);
+            setOffset((current - 2) * itemsPerPage);
         }
     }
 
     function nextPage() {
         if (current < totalPage) {
-        setCurrent(current + 1);
-        setOffset(current * itemsPerPage);
+            setCurrent(current + 1);
+            setOffset(current * itemsPerPage);
         }
     }
 

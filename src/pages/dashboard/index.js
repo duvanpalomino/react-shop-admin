@@ -21,6 +21,7 @@ const PRODUCT_OFFSET = 15;
 export default function Dashboard() {
   
   const [offsetProducts, setOffsetProducts] = useState(0);
+  
   // const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, PRODUCT_OFFSET));
   const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, offsetProducts), offsetProducts);
   const totalProducts = useFetch(endPoints.products.getList(0, 0)).length;
