@@ -9,16 +9,21 @@ const people = [
   },
 ];
 
+import React, { useState } from 'react';
 import endPoints from '@services/api';
 import useFetch from '@hooks/useFetch';
+import Paginate from '@components/Paginate';
 
 
 const PRODUCT_LIMIT = 15;
 const PRODUCT_OFFSET = 15;
 
 export default function Dashboard() {
-  const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, PRODUCT_OFFSET));
-  console.log(products);
+  
+  const [offsetProducts, setOffsetProducts] = useState(0);
+  // const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, PRODUCT_OFFSET));
+  const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, offsetProducts), offsetProducts);
+  const totalProducts = useFetch(endPoints.products.getList(0, 0)).length;
 
   return (
     <>
@@ -82,7 +87,7 @@ export default function Dashboard() {
                     </tr>
                   ))}
                 </tbody>
-                
+                {totalProducts > 0 && <Paginate totalItems={totalProducts} itemsPerPage={PRODUCT_LIMIT} setOffset={setOffsetProducts} neighbours={3}></Paginate>}
               </table>
             </div>
           </div>
