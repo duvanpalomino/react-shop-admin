@@ -1,28 +1,13 @@
-const people = [
-  {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    department: 'Optimization',
-    role: 'Admin',
-    email: 'jane.cooper@example.com',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-];
-
 import React, { useState } from 'react';
 import endPoints from '@services/api';
 import useFetch from '@hooks/useFetch';
 import Paginate from '@components/Paginate';
 
-
-const PRODUCT_LIMIT = 15;
-const PRODUCT_OFFSET = 15;
+const PRODUCT_LIMIT = 60;
 
 export default function Dashboard() {
   
   const [offsetProducts, setOffsetProducts] = useState(0);
-  
-  // const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, PRODUCT_OFFSET));
   const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, offsetProducts), offsetProducts);
   const totalProducts = useFetch(endPoints.products.getList(0, 0)).length;
 
