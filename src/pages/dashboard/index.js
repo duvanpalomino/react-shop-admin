@@ -4,13 +4,14 @@ import useFetch from '@hooks/useFetch';
 import Paginate from '@components/Paginate';
 import { Chart } from '@common/Chart';
 
-const PRODUCT_LIMIT = 60;
+const PRODUCT_LIMIT = 20;
 
 export default function Dashboard() {
   
   const [offsetProducts, setOffsetProducts] = useState(0);
   const products = useFetch(endPoints.products.getList(PRODUCT_LIMIT, offsetProducts), offsetProducts);
   const totalProducts = useFetch(endPoints.products.getList(0, 0)).length;
+
 
   const categoryNames = products?.map((product) => product.category);
   const categoryCount = categoryNames?.map((category) => category.name);
