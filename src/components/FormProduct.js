@@ -1,10 +1,12 @@
 import { useRef } from 'react';
+import { ValidationSchema } from '@common/ValidationSchema';
 
 export default function FormProduct() {
 
     const formRef = useRef(null);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => 
+    {
         event.preventDefault();
         const formData = new FormData(formRef.current);
         const data = {
@@ -14,7 +16,19 @@ export default function FormProduct() {
             categoryId: parseInt(formData.get('category')),
             images: [formData.get('images').name],
         };
-        console.log(data);
+        // console.log(data);
+        const valid = await ValidationSchema.validate(data)
+            .catch(function(err) {
+                let errorValidate = err.errors;
+                let errorMessage = "";
+                for (const [key, value] of Object.entries(errorValidate)) {
+                    console.log(value);
+                    errorMessage = errorMessage.concat(value);
+                }
+                alert(errorMessage);
+            });
+        
+        console.log(valid);
     };
 
     return (
