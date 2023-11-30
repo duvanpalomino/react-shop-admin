@@ -20,13 +20,13 @@ const ValidationSchema = Yup.object().shape({
         .min(6, 'Description too Short!') //Mínimo 6 carácteres
         .max(100, 'Description too Long!') //Máximo 100 carácteres
         .required('Description Required'), //Requerido
-    categoryId: Yup.string() //Id de categoría
+    categoryId: Yup.number() //Id de categoría
         .min(1, 'Category Id too Short!')
-        .max(1, 'Category Id too Long!')
+        .max(100000, 'Category Id too Long!')
         .required('Category Id Required'),
-    images: Yup.array() //Es array según la API
+    images: Yup.array()
         .of(
-        Yup.string() //Dentro del array permite el string
+            Yup.string(), //Dentro del array permite el string
         //  .required('Image Required'),
         ),
 });

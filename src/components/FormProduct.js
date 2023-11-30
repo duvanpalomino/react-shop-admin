@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { ValidationSchema } from '@common/ValidationSchema';
+import { addProduct } from '@services/api/products';
 
 export default function FormProduct() {
 
@@ -14,9 +15,9 @@ export default function FormProduct() {
             price: parseInt(formData.get('price')),
             description: formData.get('description'),
             categoryId: parseInt(formData.get('category')),
-            images: [formData.get('images').name],
+            images: /*[formData.get('images').name] */ ['https://www.pexels.com/es-es/foto/campo-estadio-pelota-juego-13043589/'],
         };
-        // console.log(data);
+        
         const valid = await ValidationSchema.validate(data)
             .catch(function(err) {
                 let errorValidate = err.errors;
@@ -27,8 +28,12 @@ export default function FormProduct() {
                 }
                 alert(errorMessage);
             });
+
+        // console.log(valid);
         
-        console.log(valid);
+        addProduct(valid).then((response) => {
+                console.log(response);
+            });
     };
 
     return (
