@@ -1,10 +1,13 @@
-import { Fragment, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CheckIcon } from '@heroicons/react/solid';
 import endPoints from '@services/api';
 import useFetch from '@hooks/useFetch';
 import Paginate from '@components/Paginate';
 import Modal from '@common/Modal';
 import FormProduct from '@components/FormProduct';
+import axios from 'axios';
+import useAlert from '@hooks/useAlert';
+import Alert from '@common/Alert';
 
 
 const PRODUCT_LIMIT = 20;
@@ -13,13 +16,28 @@ export default function products() {
 
     const [products, setProducts] = useState([]);
     const [open, setOpen] = useState(false);
+    const [alert, setAlert, toggleAlert] = useAlert();
 
     const [offsetProducts, setOffsetProducts] = useState(0);
     const product = useFetch(endPoints.products.getList(PRODUCT_LIMIT, offsetProducts), offsetProducts);
     const totalProducts = useFetch(endPoints.products.getList(0, 0)).length;
 
+    useEffect(() => {
+        async function getProducts() {
+            const response = await axios.get(endPoints.products.allProducts);
+            setProducts(response.data);        
+        }
+        try {
+            getProducts();
+        } catch (err) {
+            console.log(err);
+        }
+    }, [alert]);
+
     return (
         <>
+
+            <Alert alert={alert} handleClose={toggleAlert} />
 
             <div className="lg:flex lg:items-center lg:justify-between mb-8">
                 <div className="min-w-0 flex-1">
@@ -101,14 +119,14 @@ export default function products() {
                                     </tr>
                                     ))}
                                 </tbody>
-                                {/* {totalProducts > 0 && <Paginate totalItems={totalProducts} itemsPerPage={PRODUCT_LIMIT} setOffset={setOffsetProducts} neighbours={3}></Paginate>} */}
+                                {totalProducts > 0 && <Paginate totalItems={totalProducts} itemsPerPage={PRODUCT_LIMIT} setOffset={setOffsetProducts} neighbours={3}></Paginate>}
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
             <Modal open={open} setOpen={setOpen}>
-                <FormProduct />
+                <FormProduct setOpen={setOpen} setAlert={setAlert}/>
             </Modal>
         </>
     );
