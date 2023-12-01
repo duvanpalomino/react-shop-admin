@@ -7,7 +7,6 @@ const useAlert = (options) => {
         type: '',
         autoClose: true,
     };
-
     const [alert, setAlert] = useState({
         ...defaultOptions,
         ...options,
@@ -21,8 +20,7 @@ const useAlert = (options) => {
         alert,
         setAlert,
         toggleAlert,
-    }
-    
-}
+    };  
+};
 
-export default useAlert();
+export default useAlert;

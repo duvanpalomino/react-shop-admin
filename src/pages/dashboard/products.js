@@ -16,7 +16,7 @@ export default function products() {
 
     const [products, setProducts] = useState([]);
     const [open, setOpen] = useState(false);
-    const [alert, setAlert, toggleAlert] = useAlert();
+    const {alert, setAlert, toggleAlert} = useAlert();
 
     const [offsetProducts, setOffsetProducts] = useState(0);
     const product = useFetch(endPoints.products.getList(PRODUCT_LIMIT, offsetProducts), offsetProducts);
