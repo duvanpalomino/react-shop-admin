@@ -32,18 +32,36 @@ export default function FormProduct({ setOpen, setAlert, product }) {
             });
 
         if(product){
-            updateProduct(product.id, data)
-                .then((response) => {
-                    router.push('/dashboard/products/');
-                } )
+            const updateValidation = await ValidationSchema.validate(data)
+                .then(() => {
+                    updateProduct(product.id, data).then(() => {
+                        router.push('/dashboard/products/');
+                        // setAlert({
+                        //         active: true, //Se activa
+                        //         message: 'Product updated successfully',
+                        //         type: 'success',
+                        //         autoClose: false,
+                        //     });
+                        //     setTimeout(3000);
+                        // });
+                        
+                    })
+                // .catch(function(err) {
+                //     setAlert({
+                //         active: true,
+                //         message: err.message,
+                //         type: 'error',
+                //         autoClose: false,
+                //     });
+                })            
         } else {
             addProduct(valid)
                 .then(() => {
                     setAlert({
-                    active: true,
-                    message: 'Product added successfully',
-                    type: 'success',
-                    autoClose: false,
+                        active: true,
+                        message: 'Product added successfully',
+                        type: 'success',
+                        autoClose: false,
                     });
 
                     setOpen(false);
