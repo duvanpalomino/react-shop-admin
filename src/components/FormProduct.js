@@ -17,7 +17,7 @@ export default function FormProduct({ setOpen, setAlert, product }) {
             price: parseInt(formData.get('price')),
             description: formData.get('description'),
             categoryId: parseInt(formData.get('category')),
-            images: /*[formData.get('images').name] */ ['https://www.pexels.com/es-es/foto/campo-estadio-pelota-juego-13043589/'],
+            images: /*[formData.get('images').name]*/ ['https://www.pexels.com/es-es/foto/campo-estadio-pelota-juego-13043589/'],
         };
         
         const valid = await ValidationSchema.validate(data)
